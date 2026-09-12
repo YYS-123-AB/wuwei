@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="动漫番剧推荐站 - 发现你喜欢的动漫">
+  <title>动漫番剧推荐站</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-icon">🎬</span>
+        <h1>动漫番剧推荐站</h1>
+      </div>
+      <div class="header-actions">
+        <button id="favBtn" class="header-btn" title="我的收藏">
+          <span>❤</span>
+          <span id="favCount" class="badge">0</span>
+        </button>
+        <button id="themeBtn" class="header-btn" title="切换主题">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="search-section">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="🔍 搜索番名、原版名、制作公司、导演、声优、原作、标签..."
+            autocomplete="off"
+          >
+          <button id="clearSearch" class="clear-btn" title="清除搜索">×</button>
+        </div>
+      </section>
+
+      <section class="filter-section">
+        <div class="filter-group">
+          <div class="filter-label">📺 播出状态</div>
+          <div class="tab-group" id="statusTabs">
+            <button class="tab-btn active" data-status="all">全部</button>
+            <button class="tab-btn" data-status="airing">新番连载</button>
+            <button class="tab-btn" data-status="finished">已完结</button>
+            <button class="tab-btn" data-status="upcoming">即将开播</button>
+            <button class="tab-btn" data-status="movie">剧场版</button>
+            <button class="tab-btn" data-status="ova">OVA</button>
+            <button class="tab-btn" data-status="oad">OAD</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-label">🏷️ 类型分类</div>
+          <div class="tab-group" id="genreTabs">
+            <button class="tab-btn active" data-genre="all">全部</button>
+            <button class="tab-btn" data-genre="热血">热血</button>
+            <button class="tab-btn" data-genre="恋爱">恋爱</button>
+            <button class="tab-btn" data-genre="日常">日常</button>
+            <button class="tab-btn" data-genre="搞笑">搞笑</button>
+            <button class="tab-btn" data-genre="奇幻">奇幻</button>
+            <button class="tab-btn" data-genre="科幻">科幻</button>
+            <button class="tab-btn" data-genre="悬疑">悬疑</button>
+            <button class="tab-btn" data-genre="校园">校园</button>
+            <button class="tab-btn" data-genre="运动">运动</button>
+            <button class="tab-btn" data-genre="治愈">治愈</button>
+            <button class="tab-btn" data-genre="异世界">异世界</button>
+            <button class="tab-btn" data-genre="机战">机战</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-label">📅 年份季节</div>
+          <div class="tab-group" id="yearTabs">
+            <button class="tab-btn active" data-year="all">全部</button>
+            <button class="tab-btn" data-year="2024">2024</button>
+            <button class="tab-btn" data-year="2023">2023</button>
+            <button class="tab-btn" data-year="2022">2022</button>
+            <button class="tab-btn" data-year="2021">2021</button>
+            <button class="tab-btn" data-year="2020">2020</button>
+            <button class="tab-btn" data-year="older">更早</button>
+          </div>
+        </div>
+
+        <div class="filter-group sort-group">
+          <div class="filter-label">📊 排序方式</div>
+          <select id="sortSelect" class="sort-select">
+            <option value="hot-desc">🔥 热度从高到低</option>
+            <option value="hot-asc">🔥 热度从低到高</option>
+            <option value="rating-desc">⭐ 评分从高到低</option>
+            <option value="rating-asc">⭐ 评分从低到高</option>
+            <option value="year-desc">📅 年份从新到旧</option>
+            <option value="year-asc">📅 年份从旧到新</option>
+            <option value="name-asc">🔤 名称 A-Z</option>
+            <option value="name-desc">🔤 名称 Z-A</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="stats-section">
+        <div id="resultInfo" class="result-info">正在加载...</div>
+      </section>
+
+      <section id="animeGrid" class="anime-grid">
+      </section>
+
+      <section id="emptyState" class="state-section hidden">
+        <div class="state-emoji">🔍</div>
+        <h2 class="state-title">没有找到匹配的番剧</h2>
+        <p class="state-desc">试试调整筛选条件或搜索关键词吧</p>
+      </section>
+
+      <section id="loadingState" class="state-section">
+        <div class="state-emoji loading">⏳</div>
+        <h2 class="state-title">正在加载番剧数据...</h2>
+        <p class="state-desc">请稍候片刻</p>
+      </section>
+
+      <section id="errorState" class="state-section hidden">
+        <div class="state-emoji">😢</div>
+        <h2 class="state-title">加载失败</h2>
+        <p class="state-desc">无法加载番剧数据，请刷新页面重试</p>
+        <button id="retryBtn" class="primary-btn">重新加载</button>
+      </section>
+    </div>
+  </main>
+
+  <button id="backToTop" class="back-to-top" title="回到顶部">⬆️</button>
+
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div id="modalContent" class="modal-content">
+      <button id="modalClose" class="modal-close" title="关闭">×</button>
+      <div id="modalBody" class="modal-body">
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2024 动漫番剧推荐站 | 数据仅供学习参考</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

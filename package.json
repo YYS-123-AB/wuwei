@@ -1,0 +1,23 @@
+{
+  "name": "anime-recommendation-site",
+  "version": "1.0.0",
+  "description": "动漫番剧推荐站 - 纯前端项目",
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetch-data.js",
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "anime",
+    "frontend",
+    "vite"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
